@@ -1,0 +1,38 @@
+.Header {
+    background-color: aquamarine;
+
+    .headerWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 100px;
+
+        .logo {}
+
+        .cart {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: gray;
+            padding: 5px;
+            border-radius: 10px;
+            color: white;
+
+            span{}
+            svg {}
+
+            .text {}
+
+            .count {
+                background-color: white;
+                border: 1px solid gray;
+                border-radius: 50%;
+                width: 21px;
+                height: 21px;
+                color: red;
+            }
+
+
+        }
+    }
+}
