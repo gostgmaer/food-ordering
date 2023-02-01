@@ -4,15 +4,17 @@ import React from 'react';
 import Modal from './Components/Modal/ModalPortal';
 import { useGlobalContext } from './States/Context/Context';
 import Header from './Components/Header/Header';
+import AppRouting from './Utility/Routing/AppRouting';
 
 
 
 function App() {
-  const {modalhandler} = useGlobalContext()
+
   return (
     <div className="App">
     <div className='main-body'>
       <Header></Header>
+      <AppRouting></AppRouting>
     </div>
     </div>
   );
