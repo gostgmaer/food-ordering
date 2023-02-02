@@ -1,43 +1,55 @@
-import React from 'react'
-import { DUMMY_MEALS } from '../../assets/Data';
-import Input from '../../UI/Input/Input';
-import './Cart.scss'
+import React from "react";
+import { MdPlusOne, MdOutlineFlutterDash } from "react-icons/md";
+import { DUMMY_MEALS } from "../../assets/Data";
+import { useCartContext } from "../../store/Cart-context";
+import Input from "../../UI/Input/Input";
+import "./Cart.scss";
 
 const CartBlock = () => {
-  const MealItem = ({ item }) => {
+  const { item } = useCartContext();
+
+  item?.forEach(element => {
+    element['subTotal']=Number(element.price)*element.amount
+  });
+
+  const total = item.reduce((curr,data)=>(curr+data.subTotal),0)
+
+
+  const MealItem = ({ cartItem }) => {
+    console.log(cartItem);
+    const {addItem} =useCartContext()
     return (
       <li className="mealItem">
         <div className="itemData">
-          {" "}
-          <h4 className="title">{item.name}</h4>
-          <label>{`$${item.price}`}</label>
+          <h4 className="title">{cartItem.name}</h4>
+          <label>{`$${cartItem.price}`} x {cartItem.amount}</label>
         </div>
         <div className="itemForm">
-          <Input input={{ defaultValue: 1, id: 'amount', min: 1, max: 1000, step: 1, type: "number" }} />
-          <button className="btn btn-cart">Remove from Cart</button>
+        <button className="btn btn-plus">-</button>
+          <button onClick={()=>addItem({id:cartItem.id,name:cartItem.name,amount:1,price:cartItem.price})} className="btn btn-plus"><MdPlusOne></MdPlusOne></button>
         </div>
       </li>
     );
   };
   return (
-    <div className='CartBlock'>
+    <div className="CartBlock">
       <div className="CartWrapper">
         <ul>
-          {DUMMY_MEALS.map((item) => (
-            <MealItem key={item.id} item={item}></MealItem>
+          {item.map((cartItem) => (
+            <MealItem key={cartItem.id} cartItem={cartItem}></MealItem>
           ))}
         </ul>
         <div className="total">
           <span className="label">Total Amount: </span>
-          <span className='amount'>35</span>
+          <span className="amount">{total.toFixed(2)}</span>
         </div>
         <div className="order">
-          <button className='btn btnclr'> clear all</button>
-          <button className='btn btn-order'>Order Now</button>
+          <button className="btn btnclr"> clear all</button>
+          <button className="btn btn-order">Order Now</button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CartBlock
+export default CartBlock;
