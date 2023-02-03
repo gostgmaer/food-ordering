@@ -9,15 +9,15 @@ const CartBlock = () => {
   const { item } = useCartContext();
 
   item?.forEach(element => {
-    element['subTotal']=Number(element.price)*element.amount
+    element['subTotal'] = Number(element.price) * element.amount
   });
 
-  const total = item.reduce((curr,data)=>(curr+data.subTotal),0)
+  const total = item.reduce((curr, data) => (curr + data.subTotal), 0)
 
 
   const MealItem = ({ cartItem }) => {
     console.log(cartItem);
-    const {addItem} =useCartContext()
+    const { addItem, removeItem } = useCartContext()
     return (
       <li className="mealItem">
         <div className="itemData">
@@ -25,8 +25,8 @@ const CartBlock = () => {
           <label>{`$${cartItem.price}`} x {cartItem.amount}</label>
         </div>
         <div className="itemForm">
-        <button className="btn btn-plus">-</button>
-          <button onClick={()=>addItem({id:cartItem.id,name:cartItem.name,amount:1,price:cartItem.price})} className="btn btn-plus"><MdPlusOne></MdPlusOne></button>
+          <button onClick={() => removeItem(cartItem.id)} className="btn btn-plus">-1</button>
+          <button onClick={() => addItem({ id: cartItem.id, name: cartItem.name, amount: 1, price: cartItem.price })} className="btn btn-plus"><MdPlusOne></MdPlusOne></button>
         </div>
       </li>
     );
