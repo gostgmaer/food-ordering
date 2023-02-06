@@ -5,6 +5,7 @@ import CartBlock from '../CartBlock/CartBlock';
 import Modal from '../Modal/ModalPortal';
 import { useGlobalContext } from '../../States/Context/Context';
 import CartContext, { useCartContext } from '../../store/Cart-context';
+import { DUMMY_MEALS } from '../../assets/Data';
 
 const Header = () => {
   const { item } = useCartContext()
