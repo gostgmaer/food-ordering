@@ -1,5 +1,5 @@
 .CartBlock {
-
+    width: 100%;
     .CartWrapper {
         color: black !important;
         ul {
@@ -80,5 +80,8 @@
                 text-transform: capitalize;
             }
         }
+    }
+    .checkoutWrapper{
+        width: 100%;
     }
 }

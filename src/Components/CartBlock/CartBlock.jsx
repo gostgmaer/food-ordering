@@ -3,6 +3,7 @@ import { MdPlusOne, MdOutlineFlutterDash } from "react-icons/md";
 import { DUMMY_MEALS } from "../../assets/Data";
 import { useCartContext } from "../../store/Cart-context";
 import Input from "../../UI/Input/Input";
+import Checkout from "../Checkout/Checkout";
 import "./Cart.scss";
 
 const CartBlock = () => {
@@ -47,6 +48,9 @@ const CartBlock = () => {
           <button className="btn btnclr"> clear all</button>
           <button className="btn btn-order">Order Now</button>
         </div>
+      </div>
+      <div className="checkoutWrapper">
+      <Checkout></Checkout>
       </div>
     </div>
   );
