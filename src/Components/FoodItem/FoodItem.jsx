@@ -1,15 +1,17 @@
-import { logDOM } from "@testing-library/react";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { DUMMY_MEALS } from "../../assets/Data";
-import CartContext, { useCartContext } from "../../store/Cart-context";
+
+import React, { Fragment, useContext, useEffect, useRef, useState } from "react";
+
+import CartContext, { } from "../../store/Cart-context";
 import Input from "../../UI/Input/Input";
 import InvokeAPI, { cleanParam } from "../../Utility/Services/InvokeApi";
 import "./foodItem.scss";
 const FoodItem = () => {
   const [foodItems, setFoodItems] = useState(null);
   const [httpError, setHttpError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getFoodData = async () => {
+    setIsLoading(true)
     let param = {
     };
     cleanParam(param)
@@ -17,26 +19,27 @@ const FoodItem = () => {
       const res = await InvokeAPI(`shop.json`, "get", {}, {}, param);
 
       setFoodItems(Object.entries(res))
-      foodItems.forEach(element => {
-       
-        element['1']['uuid']=element['0']
-      
-        delete(element['0'])
-       
+      foodItems?.forEach(element => {
+
+        element['1']['uuid'] = element['0']
+
+        delete (element['0'])
+
       });
-    
+
     } catch (error) {
-      console.log(error.message)
+    
       setHttpError(error.message)
+     
 
     }
-
+    setIsLoading(false)
   };
   useEffect(() => {
-    
-  
+
+
     getFoodData()
-  console.log(foodItems);
+   
   }, []);
 
 
@@ -81,11 +84,14 @@ const FoodItem = () => {
   return (
     <div className="FoodItem">
       <div className="footItemsWrapper">
-        <ul>
-          {foodItems?.map((item) => (
-            <MealItem key={item.id} item={item}></MealItem>
-          ))}
-        </ul>
+        {isLoading ? <div className="loading">Data is Loading.....</div> : <Fragment> {httpError ? <div className="error">{httpError}</div> : <ul>
+          {foodItems?.map((item) => {
+
+            return (
+              <MealItem key={item['0']} item={item}></MealItem>
+            )
+          })}
+        </ul>} </Fragment>}
       </div>
     </div>
   );
